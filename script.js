@@ -164,43 +164,47 @@ document.addEventListener("DOMContentLoaded", function () {
     var indicatorsContainer = document.querySelector('.carousel-indicators');
     var currentCenterIndex = 0;
 
-    function updateCarousel(index) {
-        if (!carouselTrack || carouselItems.length === 0) {
-            return;
-        }
-
-        var trackWrapper = document.querySelector('.carousel-track-wrapper');
-        var itemWidth = carouselItems[0].getBoundingClientRect().width;
-        var wrapperWidth = trackWrapper ? trackWrapper.clientWidth : itemWidth;
-        var gap = 20;
-
-        if (index < 0) {
-            index = carouselItems.length - 1;
-        }
-
-        if (index >= carouselItems.length) {
-            index = 0;
-        }
-
-        currentCenterIndex = index;
-        var targetItem = carouselItems[index];
-        var offset = targetItem.offsetLeft - (wrapperWidth - itemWidth) / 2;
-        var maxOffset = carouselTrack.scrollWidth - wrapperWidth;
-        offset = Math.max(0, Math.min(offset, maxOffset));
-
-        carouselTrack.style.transform = 'translateX(-' + offset + 'px)';
-
-        carouselItems.forEach(function (item, itemIndex) {
-            item.classList.toggle('center-item', itemIndex === currentCenterIndex);
-        });
-
-        if (indicatorsContainer) {
-            var dots = Array.from(indicatorsContainer.querySelectorAll('.carousel-dot'));
-            dots.forEach(function (dot, dotIndex) {
-                dot.classList.toggle('active', dotIndex === currentCenterIndex);
-            });
-        }
+   function updateCarousel(index) {
+    if (!carouselTrack || carouselItems.length === 0) {
+        return;
     }
+
+    var trackWrapper = document.querySelector('.carousel-track-wrapper');
+    var wrapperWidth = trackWrapper ? trackWrapper.clientWidth : carouselItems[0].offsetWidth;
+
+    if (index < 0) {
+        index = carouselItems.length - 1;
+    }
+    if (index >= carouselItems.length) {
+        index = 0;
+    }
+
+    currentCenterIndex = index;
+
+    var targetItem = carouselItems[index];
+    var itemWidth = targetItem.offsetWidth; // <- offsetWidth, não getBoundingClientRect, e mede o item-alvo
+    var offset = targetItem.offsetLeft - (wrapperWidth - itemWidth) / 2;
+    var maxOffset = carouselTrack.scrollWidth - wrapperWidth;
+
+    if (maxOffset <= 0) {
+        offset = 0;
+    } else {
+        offset = Math.max(0, Math.min(offset, maxOffset));
+    }
+
+    carouselTrack.style.transform = 'translateX(-' + Math.round(offset) + 'px)';
+
+    carouselItems.forEach(function (item, itemIndex) {
+        item.classList.toggle('center-item', itemIndex === currentCenterIndex);
+    });
+
+    if (indicatorsContainer) {
+        var dots = Array.from(indicatorsContainer.querySelectorAll('.carousel-dot'));
+        dots.forEach(function (dot, dotIndex) {
+            dot.classList.toggle('active', dotIndex === currentCenterIndex);
+        });
+    }
+}
 
     if (carouselItems.length > 0 && indicatorsContainer) {
         indicatorsContainer.innerHTML = '';
@@ -228,14 +232,5 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    if (carouselItems.length > 0) {
-        updateCarousel(currentCenterIndex);
-    }
-
-    window.addEventListener('resize', function () {
-        if (carouselItems.length > 0) {
-            updateCarousel(currentCenterIndex);
-        }
-    });
 
 });
