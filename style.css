@@ -135,7 +135,67 @@ body {
   transform: scale(1.04);
   box-shadow: 0 6px 36px rgba(255, 140, 0, 0.5);
 }
+.btn-mei {
+ /* Alinhamento da caixa no meio da página */
+  margin: -20px auto 60px auto; /* Cima, Direita (auto), Baixo, Esquerda (auto) */
+  width: 500px;
+  box-sizing: border-box;
 
+  /* Alinhamento do texto dentro do botão */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  /* Design e Estilo */
+  background: linear-gradient(90deg, var(--g), var(--g2));
+  color: #000;
+  font-weight: 800;
+  font-size: 1.5rem;
+  line-height: 1.0;
+  padding: 20px 36px; /* Ajustado: 20px cima/baixo e 36px laterais */
+  border-radius: 10px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+
+  
+}
+
+.btn-mei:hover {
+  transform: scale(1.04);
+  box-shadow: 0 6px 36px rgba(255, 140, 0, 0.5);
+}
+.btn-meio {
+ /* Alinhamento da caixa no meio da página */
+  margin: 40px auto -20px auto; /* Cima, Direita (auto), Baixo, Esquerda (auto) */
+  width: 500px;
+  box-sizing: border-box;
+
+  /* Alinhamento do texto dentro do botão */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  /* Design e Estilo */
+  background: linear-gradient(90deg, var(--g), var(--g2));
+  color: #000;
+  font-weight: 800;
+  font-size: 1.5rem;
+  line-height: 1.0;
+  padding: 20px 36px; /* Ajustado: 20px cima/baixo e 36px laterais */
+  border-radius: 10px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+
+}
+
+.btn-meio:hover {
+  transform: scale(1.04);
+  box-shadow: 0 6px 36px rgba(255, 140, 0, 0.5);
+}
 .bto {
   background: transparent;
   border: 2px solid var(--g);
@@ -212,9 +272,11 @@ body {
 .sec {
   padding: 72px 0;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
+  
 }
 
-.pb { background: var(--bg2); }
+.pb { background: var(--bg2);
+ }
 
 .sl {
   font-size: 10px;
