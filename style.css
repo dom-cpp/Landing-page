@@ -79,7 +79,7 @@ body {
   text-shadow: #000000 0px 10px 20px;
 }
 .hero h2 {
-  font-size: 54px;
+  font-size: clamp(25px, 5vw, 54px);
   font-weight: 800;
   line-height: 0.90;
   letter-spacing: -0.02em;
@@ -615,64 +615,11 @@ footer {
 }
 
 /* ── RESPONSIVO ── */
-@media (max-width: 920px) {
-  .wrap { padding: 0 18px; }
-  .hero { padding: 60px 0 40px; }
-  .hero h1, .hero h2 { font-size: clamp(28px, 6vw, 44px); }
-  .hero .sub { margin-bottom: 24px; }
-  .hinfo { gap: 10px; margin-bottom: 22px; }
-  .hitem { padding: 10px 14px; font-size: 13px; }
-  .btn { font-size: 1.25rem; padding: 14px 28px; }
-  .bto { padding: 10px 22px; }
-  .sg, .modg, .formg, .tg, .gg { grid-template-columns: 1fr; }
-  .pilg { grid-template-columns: 1fr; }
-  .formc, .modc, .gc, .tc, .sc { padding: 22px; }
-  .form-avatar-img { width: 64px; height: 64px; }
-  .form-ig { width: 100%; justify-content: center; padding: 12px 20px; }
-  .form-stats { gap: 6px; }
-  .form-atua ul { gap: 6px; }
-  .faq-l { width: 100%; max-width: 100%; margin-top: 32px; }
-  .fq { padding: 16px 18px; }
-  .fa { padding: 0 18px 16px; }
-  .ctaf { padding: 70px 0 50px; }
-  .ctaf .sub2 { max-width: 100%; }
-  .fl { max-width: 100%; }
-}
-
 @media (max-width: 700px) {
-  .wrap { padding: 0 16px; }
-  .hero { padding: 48px 0 32px; }
-  .hero h1, .hero h2 { font-size: clamp(24px, 8vw, 36px); }
-  .hinfo { flex-direction: column; align-items: center; }
-  .btn, .bto, .form-ig { width: 100%; }
-  .vbo { max-width: 100%; }
-  .sec { padding: 44px 0; }
-  .sl { font-size: 9px; letter-spacing: 2px; margin-bottom: 10px; }
-  .ss { max-width: 100%; }
-  .formg, .pilg, .modg, .tg, .gg { grid-template-columns: 1fr; }
-  .formc, .modc, .gc, .tc, .sc { padding: 18px 16px; }
-  .form-avatar-img { width: 60px; height: 60px; }
-  .form-stats { gap: 6px; }
-  .faq-l { margin-top: 24px; }
-  .carousel-track-wrapper { min-height: 300px; padding: 18px; }
-  .carousel-item { padding: 18px; }
-  .carousel-control { width: 38px; height: 38px; font-size: 22px; }
-  .carousel-indicators { margin-top: 16px; }
-}
-
-@media (max-width: 520px) {
-  .hero { padding: 38px 0 24px; }
-  .hero h1, .hero h2 { font-size: clamp(22px, 9vw, 32px); }
-  .badge { padding: 5px 14px; font-size: 10px; }
-  .hitem { padding: 8px 12px; }
-  .btn { padding: 14px 20px; }
-  .bto { padding: 10px 18px; }
-  .formc, .modc, .gc, .tc, .sc { padding: 16px; }
-  .form-ig { padding: 10px 18px; }
-  .carousel-track-wrapper { min-height: 240px; padding: 16px; }
-  .carousel-item { padding: 16px; }
-  .faq-l { gap: 12px; }
-  footer { padding: 20px 0; font-size: 11px; }
+  .formg { grid-template-columns: 1fr; }
+  .pilg  { grid-template-columns: 1fr; }
+  .sec   { padding: 52px 0; }
+  .hero  { padding: 52px 0 40px; }
 }
 
 /* -- CARROSSEL DE VÍDEOS -- */
