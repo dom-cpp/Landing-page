@@ -157,80 +157,98 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // CARROSSEL DE VÍDEOS
-    var carouselTrack = document.querySelector('.carousel-track');
-    var carouselItems = carouselTrack ? Array.from(carouselTrack.querySelectorAll('.carousel-item')) : [];
-    var prevButton = document.querySelector('.carousel-control.prev');
-    var nextButton = document.querySelector('.carousel-control.next');
-    var indicatorsContainer = document.querySelector('.carousel-indicators');
-    var currentCenterIndex = 0;
+const carouselTrack = document.querySelector('.carousel-track');
+const carouselItems = carouselTrack
+    ? [...carouselTrack.querySelectorAll('.carousel-item')]
+    : [];
 
-   function updateCarousel(index) {
-    if (!carouselTrack || carouselItems.length === 0) {
-        return;
-    }
+const prevButton = document.querySelector('.carousel-control.prev');
+const nextButton = document.querySelector('.carousel-control.next');
+const indicatorsContainer = document.querySelector('.carousel-indicators');
+const trackWrapper = document.querySelector('.carousel-track-wrapper');
 
-    var trackWrapper = document.querySelector('.carousel-track-wrapper');
-    var wrapperWidth = trackWrapper ? trackWrapper.clientWidth : carouselItems[0].offsetWidth;
+let currentIndex = 0;
 
-    if (index < 0) {
-        index = carouselItems.length - 1;
-    }
-    if (index >= carouselItems.length) {
-        index = 0;
-    }
+function updateCarousel(index) {
+    if (!carouselTrack || !carouselItems.length) return;
 
-    currentCenterIndex = index;
+    const totalItems = carouselItems.length;
 
-    var targetItem = carouselItems[index];
-    var itemWidth = targetItem.offsetWidth; // <- offsetWidth, não getBoundingClientRect, e mede o item-alvo
-    var offset = targetItem.offsetLeft - (wrapperWidth - itemWidth) / 2;
-    var maxOffset = carouselTrack.scrollWidth - wrapperWidth;
+    currentIndex = (index + totalItems) % totalItems;
 
-    if (maxOffset <= 0) {
-        offset = 0;
-    } else {
-        offset = Math.max(0, Math.min(offset, maxOffset));
-    }
+    const targetItem = carouselItems[currentIndex];
 
-    carouselTrack.style.transform = 'translateX(-' + Math.round(offset) + 'px)';
+    const wrapperWidth = trackWrapper.clientWidth;
+    const itemWidth = targetItem.offsetWidth;
 
-    carouselItems.forEach(function (item, itemIndex) {
-        item.classList.toggle('center-item', itemIndex === currentCenterIndex);
+    let offset =
+        targetItem.offsetLeft -
+        (wrapperWidth / 2) +
+        (itemWidth / 2);
+
+    const maxOffset = Math.max(
+        0,
+        carouselTrack.scrollWidth - wrapperWidth
+    );
+
+    offset = Math.max(0, Math.min(offset));
+
+    carouselTrack.style.transform = `translateX(-${offset}px)`;
+
+    carouselItems.forEach((item, i) => {
+        item.classList.toggle('center-item', i === currentIndex);
     });
 
-    if (indicatorsContainer) {
-        var dots = Array.from(indicatorsContainer.querySelectorAll('.carousel-dot'));
-        dots.forEach(function (dot, dotIndex) {
-            dot.classList.toggle('active', dotIndex === currentCenterIndex);
+    document
+        .querySelectorAll('.carousel-dot')
+        .forEach((dot, i) => {
+            dot.classList.toggle('active', i === currentIndex);
         });
-    }
 }
 
-    if (carouselItems.length > 0 && indicatorsContainer) {
-        indicatorsContainer.innerHTML = '';
-        carouselItems.forEach(function (_, itemIndex) {
-            var dot = document.createElement('button');
-            dot.type = 'button';
-            dot.className = 'carousel-dot' + (itemIndex === currentCenterIndex ? ' active' : '');
-            dot.setAttribute('aria-label', 'Ir para depoimento ' + (itemIndex + 1));
-            dot.addEventListener('click', function () {
-                updateCarousel(itemIndex);
-            });
-            indicatorsContainer.appendChild(dot);
+function createIndicators() {
+    if (!indicatorsContainer) return;
+
+    indicatorsContainer.innerHTML = '';
+
+    carouselItems.forEach((_, index) => {
+        const dot = document.createElement('button');
+
+        dot.className =
+            `carousel-dot${index === 0 ? ' active' : ''}`;
+
+        dot.type = 'button';
+        dot.setAttribute(
+            'aria-label',
+            `Ir para depoimento ${index + 1}`
+        );
+
+        dot.addEventListener('click', () => {
+            updateCarousel(index);
         });
-    }
 
-    if (prevButton) {
-        prevButton.addEventListener('click', function () {
-            updateCarousel(currentCenterIndex - 1);
-        });
-    }
+        indicatorsContainer.appendChild(dot);
+    });
+}
 
-    if (nextButton) {
-        nextButton.addEventListener('click', function () {
-            updateCarousel(currentCenterIndex + 1);
-        });
-    }
+function initCarousel() {
+    if (!carouselItems.length) return;
 
+    createIndicators();
 
-});
+    prevButton?.addEventListener('click', () => {
+        updateCarousel(currentIndex - 1);
+    });
+
+    nextButton?.addEventListener('click', () => {
+        updateCarousel(currentIndex + 1);
+    });
+
+    window.addEventListener('resize', () => {
+        updateCarousel(currentIndex);
+    });
+
+    updateCarousel(0);
+}
+
+initCarousel();});
