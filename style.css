@@ -50,21 +50,31 @@ body {
 
 /* ── HERO ── */
 .hero {
-  background: radial-gradient(ellipse at 50% 0%, #1f1f1f 0%, #0b0b0b 65%);
-  padding: 72px 0 56px;
-  text-align: center;
-  min-height: 80vh ;
-      
+    position: relative;
+    overflow: hidden;
+
+    background: radial-gradient(
+        ellipse at 50% 0%,
+        #1f1f1f 0%,
+        #0b0b0b 65%
+    );
+
+    padding: 72px 0 56px;
+    text-align: center;
+    min-height: 80vh;
 }
+
+/* Fundo da multidão */
 .hero-bg{
     position: absolute;
     inset: 0;
 
     background: url(img/bg.jpg) center center / cover no-repeat;
 
-    opacity: 0.12;
+    opacity: 0.18;
     filter: blur(5px);
-        mask-image: linear-gradient(
+
+    mask-image: linear-gradient(
         to top,
         transparent 0%,
         rgba(0,0,0,.2) 20%,
@@ -83,14 +93,19 @@ body {
     z-index: 1;
 }
 
-
+/* Formadores */
 .bg-img{
     position: absolute;
-    scale: 1.62;
-    margin: 150px;
-    top:0%;
-    opacity: 0.92;
+    top: 0;
+    scale: 1.42;
+    margin: 10vh;
+
+    width: clamp(280px, 25vw, 520px);
+
+    opacity: 0;
     z-index: 2;
+
+    filter: blur(12px);
 
     mask-image: linear-gradient(
         to top,
@@ -107,40 +122,78 @@ body {
         rgba(0,0,0,.6) 50%,
         black 100%
     );
-}
-.bg-img{
-    opacity: 0;
-    filter: blur(12px);
+
     animation: revealHero 2s cubic-bezier(.22,1,.36,1) forwards;
 }
 
-@keyframes revealHero{
-    0%{
-        opacity:0;
-        filter:blur(12px);
-        transform:translateY(-50%) translateY(50%) scale(.92);
-    }
-
-    100%{
-        opacity:1;
-        filter:blur(0);
-        transform:translateY(0) translateY(0) scale(1);
-    }
-}
-
 .bg-left{
-    left: -50px;
-    width: 400px;
-
+    left: -80px;
 }
 
 .bg-right{
-    right: -50px;
-    width: 400px;
-
+    right: -80px;
 }
 
+/* Conteúdo */
+.hero .wrap{
+    position: relative;
+    z-index: 3;
+}
 
+/* Animação */
+@keyframes revealHero{
+    0%{
+        opacity: 0;
+        filter: blur(12px);
+        transform: translateY(40px) scale(.92);
+    }
+
+    100%{
+        opacity: .92;
+        filter: blur(0);
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Tablet */
+@media (max-width: 1024px){
+
+    .bg-img{
+        width: 340px;
+        opacity: .65;
+    }
+
+    .bg-left{
+        left: -120px;
+    }
+
+    .bg-right{
+        right: -120px;
+    }
+
+    .hero{
+        min-height: auto;
+    }
+}
+
+/* Celular */
+@media (max-width: 768px){
+
+    .hero{
+        padding: 90px 20px 60px;
+        min-height: auto;
+    }
+
+    .hero-bg{
+        opacity: .22;
+        filter: blur(3px);
+    }
+
+    /* Esconde os formadores no mobile */
+    .bg-img{
+        display: none;
+    }
+}
 
 .badge {
   display: inline-block;
