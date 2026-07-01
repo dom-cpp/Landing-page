@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // CONTADOR
-    var countdownDate = new Date(2026, 6, 23, 19, 0, 0).getTime();
+    var countdownDate = new Date(2026, 7, 20, 19, 0, 0).getTime();
     var countdownEl = document.getElementById("cd");
 
     if (countdownEl) {
